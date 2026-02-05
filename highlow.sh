@@ -1,4 +1,26 @@
 #!/usr/bin/env bash
+#######################################################################################################################
+#
+#	Sample bash code for a high low implementation to demonstrate some bash capabilities
+#
+#######################################################################################################################
+#
+#    Copyright (c) 2026 
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#######################################################################################################################
 
 declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
@@ -58,30 +80,26 @@ while :; do
 		fi
 	done
 
-	result="$(nextTrial $NUMBER $trial $trialCount $min $max)"
-	if (( $? == 0 )); then
+	if result="$(nextTrial "$NUMBER" "$trial" "$trialCount" "$min" "$max")"; then
 		echo "! Found $NUMBER in $trialCount trials"
-		#exit 0
 		break
 	else
 		read -r trialCount min max <<< "$result"
 	fi
 done
 
-myTrials="$trials"
+myTrials="$trialCount"
 
 min="$LOW"
 max="$HIGH"
 
-found=0
 trialCount=1
 (( trial = min+(max-min)/2 ))
 
 echo "Computer trials ..."
 while :; do
 	echo -n "$trial "
-	result="$(nextTrial $NUMBER $trial $trialCount $min $max)"
-	if (( $? == 0 )); then
+	if result="$(nextTrial $NUMBER "$trial" "$trialCount" "$min" "$max")"; then
 		echo
 		echo "! Found $NUMBER in $trialCount trials"
 		break
@@ -93,8 +111,8 @@ done
 
 if (( myTrials == trialCount )); then
 	echo "Identical trials $trialCount"
-elif (( myTrials > trial )); then
-	echo "$(( myTrials -trialCount )) trials better than computer"
+elif (( myTrials > trialCount )); then
+	echo "$(( myTrials -trialCount )) trials worse than computer"
 else 
-	echo "$(( trialCount - myTrials )) trials worse than computer"
+	echo "$(( trialCount - myTrials )) trials better than computer"
 fi
