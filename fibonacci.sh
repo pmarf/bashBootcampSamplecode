@@ -22,9 +22,9 @@
 #
 #######################################################################################################################
 
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-
 source functions.sh # helperfunctions
+
+declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 fak_r() {
 	local fm1 result

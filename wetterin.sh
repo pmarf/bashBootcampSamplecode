@@ -22,14 +22,14 @@
 #
 #######################################################################################################################
 
+source functions.sh	# helperfunctions
+
 declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 readonly OPENSTREATMAP_URL="https://nominatim.openstreetmap.org"
 readonly OPENMETEO_URL="https://api.open-meteo.com"
 
 readonly DEBUG=0	# set to 1 to enable debug output of received curl data
-
-source functions.sh	# helperfunctions
 
 jqAvailable=0
 if which jq > /dev/null; then	# sudo apt install jq

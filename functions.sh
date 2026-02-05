@@ -24,7 +24,11 @@
 
 error() {
 	echo "$@" >&2
-	exit 1
+	if (( $# == 1 )); then
+		exit 1
+	else
+		return 1
+	fi
 }
 
 isInteger() { # number
