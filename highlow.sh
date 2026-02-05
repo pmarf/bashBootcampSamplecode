@@ -112,7 +112,7 @@ done
 if (( myTrials == trialCount )); then
 	echo "Identical trials $trialCount"
 elif (( myTrials > trialCount )); then
-	echo "$(( myTrials -trialCount )) trials worse than computer"
+	echo "$(( myTrials - trialCount )) trials worse than computer"
 else 
 	echo "$(( trialCount - myTrials )) trials better than computer"
 fi
