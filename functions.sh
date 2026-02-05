@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code of the calculation of fibonacci number recursive and interative
+#	Sample bash code functions 
 #
 #######################################################################################################################
 #
@@ -22,56 +22,11 @@
 #
 #######################################################################################################################
 
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-
-source functions.sh # helperfunctions
-
-fak_r() {
-	local fm1 result
-	if (( $1 < 1 )); then
-		echo "1"
-	else
-		(( fm1 = $1 -1 ))
-		fm1="$(fak_r "$fm1")"
-		(( result =$1 * fm1 ))
-		echo "$result"
-	fi
+error() {
+	echo "$@" >&2
+	exit 1
 }
 
-fak_i() {
-	local result=1
-	for ((i=2; i<=$1; i++)); do
-		(( result *= i ))
-	done
-	echo "$result"
+isInteger() { # number
+	[[ "$1" =~ ^[0-9]+$ ]]
 }
-
-fibonacci() { # number
-
-	local result
-
-	if (( $# == 0 )); then
-		error "Missing number"
-	fi
-
-	if (( $1 < 0 || $1 > 20 )); then
-		error "Number out of bounds"
-	fi	
-
-	result="$(fak_r "$1")"
-	echo -n "$1! = $result (recursive)"
-
-	echo
-	result=$(fak_i "$1")
-	echo -n "$1! = $result (iterative)"
-	echo
-}
-
-if (( $# != 0 )); then
-	fibonacci "$1"
-else
-	for i in $(seq 0 5 20);do
-		fibonacci "$i"
-	done
-fi	
-

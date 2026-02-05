@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code for a high low implementation to demonstrate some bash capabilities
+#	Sample bash code of a high low implementation to demonstrate some bash capabilities
 #
 #######################################################################################################################
 #
-#    Copyright (c) 2026 
+#    Copyright (c) 2026 https://github.com/pmarf
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -28,14 +28,7 @@ LOW=0
 HIGH=100
 NUMBER=$(( RANDOM % ( HIGH + 1 ) ))
 
-isInteger() { # number
-	[[ "$1" =~ ^[0-9]+$ ]]
-}
-
-error() {
-	echo "$@" >&2
-	exit 1
-}
+source functions.sh # helperfunctions
 
 nextTrial() { # number trial trialCount min max
 	local number trial trialCount min max
