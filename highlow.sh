@@ -47,41 +47,47 @@ nextTrial() { # number trial trialCount min max
 	fi
 }
 
+demo=0
 if (( $# == 1 )); then
-	if ! isInteger "$1"; then
+	if [[ "$1" == "demo" ]]; then
+		demo=1
+	elif ! isInteger "$1"; then
 		error "$1 is no integer"
+	else
+		HIGH="$1"
 	fi
-	HIGH="$1"
 fi
 
 min="$LOW"
 max="$HIGH"
 trialCount=1
 
-while :; do
-	inputOK=0
-	while (( ! inputOK )); do
-		read -r -p "Trial $trialCount: Enter a number between $min and $max -> " trial
-		if isInteger "$trial"; then
-			if (( trial < min )) || (( trial > max )); then
-				echo "? Trial $trial not betwwen $min and $max"
+if (( !demo )); then
+	while :; do
+		inputOK=0
+		while (( ! inputOK )); do
+			read -r -p "Trial $trialCount: Enter a number between $min and $max -> " trial
+			if isInteger "$trial"; then
+				if (( trial < min )) || (( trial > max )); then
+					echo "? Trial $trial not betwwen $min and $max"
+				else
+					inputOK=1
+				fi
 			else
-				inputOK=1
+				echo "? Invalid number $trial"
 			fi
+		done
+
+		if result="$(nextTrial "$NUMBER" "$trial" "$trialCount" "$min" "$max")"; then
+			echo "! Found $NUMBER in $trialCount trials"
+			break
 		else
-			echo "? Invalid number $trial"
+			read -r trialCount min max <<< "$result"
 		fi
 	done
 
-	if result="$(nextTrial "$NUMBER" "$trial" "$trialCount" "$min" "$max")"; then
-		echo "! Found $NUMBER in $trialCount trials"
-		break
-	else
-		read -r trialCount min max <<< "$result"
-	fi
-done
-
-myTrials="$trialCount"
+	myTrials="$trialCount"
+fi	
 
 min="$LOW"
 max="$HIGH"
@@ -91,7 +97,7 @@ trialCount=1
 
 echo "Computer trials ..."
 while :; do
-	echo -n "$trial "
+	echo -n "$trial->"
 	if result="$(nextTrial $NUMBER "$trial" "$trialCount" "$min" "$max")"; then
 		echo
 		echo "! Found $NUMBER in $trialCount trials"
@@ -102,10 +108,12 @@ while :; do
 	fi
 done
 
-if (( myTrials == trialCount )); then
-	echo "Identical trials $trialCount"
-elif (( myTrials > trialCount )); then
-	echo "$(( myTrials - trialCount )) trials worse than computer"
-else 
-	echo "$(( trialCount - myTrials )) trials better than computer"
+if (( ! demo )); then
+	if (( myTrials == trialCount )); then
+		echo "Identical trials $trialCount"
+	elif (( myTrials > trialCount )); then
+		echo "$(( myTrials - trialCount )) trials worse than computer"
+	else 
+		echo "$(( trialCount - myTrials )) trials better than computer"
+	fi
 fi
