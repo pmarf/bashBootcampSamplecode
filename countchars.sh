@@ -57,16 +57,10 @@ sortfilename="$(mktemp)"
 unprintable=0
 for char in "${!frequency[@]}"; do
 	count="${frequency[$char]}"
-	frequency="$(bc <<< "scale=2; ( $count / $sumchars ) * 100")"
-	if [[ $char =~ [[:print:]] ]]; then
-		echo "$char $frequency $count" >> "$sortfilename"
-	else
-		(( unprintable++ ))
-	fi		
+	(( frequency=($count * 100 ) / $sumchars ))
+	echo "${frequency} $count '$char' " >> "$sortfilename"
 done
-frequency="$(bc <<< "scale=2; ( $unprintable / $sumchars ) * 100")"
-echo "NOP $frequency $unprintable" >> "$sortfilename"
 
-sort -n -r -k 3 "$sortfilename"
+sort -k1,1nr -k2,1nr "$sortfilename"
 
 rm "$sortfilename"
