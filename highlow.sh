@@ -22,13 +22,13 @@
 #
 #######################################################################################################################
 
+source functions.sh # helperfunctions
+
 declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 LOW=0
 HIGH=100
 NUMBER=$(( RANDOM % ( HIGH + 1 ) ))
-
-source functions.sh # helperfunctions
 
 nextTrial() { # number trial trialCount min max
 	local number trial trialCount min max
