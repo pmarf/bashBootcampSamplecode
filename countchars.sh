@@ -36,6 +36,7 @@ if [[ ! -e "$1" ]]; then
 	echo "$1 not found"
 fi
 
+filename="$1"
 sumchars=0
 
 while read -r line; do
@@ -48,15 +49,24 @@ while read -r line; do
 			(( frequency[$char]=1 ))
 		fi
 	done
-done < "$1"
+done < "$filename"
 
 echo "Sum chars: $sumchars"
 
-sortfilename=$(mktemp)
+sortfilename="$(mktemp)"
+unprintable=0
 for char in "${!frequency[@]}"; do
-	echo "${frequency[$char]} $char " >> "$sortfilename"
+	count="${frequency[$char]}"
+	frequency="$(bc <<< "scale=2; ( $count / $sumchars ) * 100")"
+	if [[ $char =~ [[:print:]] ]]; then
+		echo "$char $frequency $count" >> "$sortfilename"
+	else
+		(( unprintable++ ))
+	fi		
 done
+frequency="$(bc <<< "scale=2; ( $unprintable / $sumchars ) * 100")"
+echo "NOP $frequency $unprintable" >> "$sortfilename"
 
-sort -n -r "$sortfilename"
+sort -n -r -k 3 "$sortfilename"
 
 rm "$sortfilename"
