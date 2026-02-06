@@ -33,4 +33,5 @@
 	Count number of files with a given extension in a directory tree
 	
 * countchars.sh
+* 
 	Count frequency of characters in a file and sort by frequency
