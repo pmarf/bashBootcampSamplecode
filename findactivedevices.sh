@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code which scans for active slocal systems
+#	Sample bash code which scans for active local systems
 #
 #######################################################################################################################
 #
@@ -29,8 +29,12 @@ source functions.sh # helperfunctions
 declare -A names
 declare -A ips
 
+if (( $# == 0 )); then
+	error "Missing subnet, e.g. 192.168.178.0/24 and optional args -i or -n"
+fi
+
 sortrequested=0
-if [[ "$2" == "-i" || "$2" == "-n" ]]; then
+if [[ -n "$2"&& ( "$2" == "-i" || "$2" == "-n" ) ]]; then
 	sortrequested=1
 	sortrequest="$2"
 fi
