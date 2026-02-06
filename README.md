@@ -1,6 +1,6 @@
 # Sample bash code for a bash bootcamp
 
-* denumber.sh
+* substdigits.sh
  
     Replace digits 0-9 with their textual representation
     
