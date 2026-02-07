@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code which counts number of files with a given extension
+#   Sample bash code which counts number of files with a given extension
 #
 #######################################################################################################################
 #
@@ -22,14 +22,14 @@
 #
 #######################################################################################################################
 
-source functions.sh 														# source helperfunctions
+source functions.sh                                                         # source helperfunctions
 
 if (( $# < 1 )); then
-	error "Missing directory and optional extension"
+    error "Missing directory and optional extension"
 fi
 
 directory="$1"
-extension="${2:-"*.sh"}"													# set extension to "*.sh if no second parameter was passed
+extension="${2:-"*.sh"}"                                                    # set extension to "*.sh if no second parameter was passed
 
 # find all files with passed extension case insensitive and count number of lines reurned by find
 echo "Found $(find "$directory" -iname "$extension" | wc -l) files with extension $extension in $directory"

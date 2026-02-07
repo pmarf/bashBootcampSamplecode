@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code of the calculation of fibonacci number recursive and interative
+#   Sample bash code of the calculation of fibonacci number recursive and interative
 #
 #######################################################################################################################
 #
@@ -22,54 +22,54 @@
 #
 #######################################################################################################################
 
-source functions.sh 														# include helperfunctions
+source functions.sh                                                         # include helperfunctions
 
 fak_r() {
-	local fm1 result
-	if (( $1 < 1 )); then
-		echo "1"
-	else
-		(( fm1 = $1 -1 ))
-		fm1="$(fak_r "$fm1")"
-		(( result =$1 * fm1 ))
-		echo "$result"
-	fi
+    local fm1 result
+    if (( $1 < 1 )); then
+        echo "1"
+    else
+        (( fm1 = $1 -1 ))
+        fm1="$(fak_r "$fm1")"
+        (( result =$1 * fm1 ))
+        echo "$result"
+    fi
 }
 
 fak_i() {
-	local result=1
-	for ((i=2; i<=$1; i++)); do
-		(( result *= i ))
-	done
-	echo "$result"
+    local result=1
+    for ((i=2; i<=$1; i++)); do
+        (( result *= i ))
+    done
+    echo "$result"
 }
 
 fibonacci() { # number
 
-	local result
+    local result
 
-	if (( $# == 0 )); then
-		error "Missing number"
-	fi
+    if (( $# == 0 )); then
+        error "Missing number"
+    fi
 
-	if (( $1 < 0 || $1 > 20 )); then
-		error "Number out of bounds"
-	fi	
+    if (( $1 < 0 || $1 > 20 )); then
+        error "Number out of bounds"
+    fi  
 
-	result="$(fak_r "$1")"
-	echo -n "$1! = $result (recursive)"
+    result="$(fak_r "$1")"
+    echo -n "$1! = $result (recursive)"
 
-	echo
-	result=$(fak_i "$1")
-	echo -n "$1! = $result (iterative)"
-	echo
+    echo
+    result=$(fak_i "$1")
+    echo -n "$1! = $result (iterative)"
+    echo
 }
 
 if (( $# != 0 )); then
-	fibonacci "$1"
+    fibonacci "$1"
 else
-	for i in $(seq 0 5 20);do								# some tests
-		fibonacci "$i"
-	done
-fi	
+    for i in $(seq 0 5 20);do                               # some tests
+        fibonacci "$i"
+    done
+fi  
 
