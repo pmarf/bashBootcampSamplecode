@@ -1,7 +1,7 @@
 # Sample bash code for a bash bootcamp
 
 
-* [countfiles.sh]((https://github.com/pmarf/bashBootcampSamplecode/blob/main/countfiles.sh))
+* [countfiles.sh]((https://github.com/pmarf/bashBootcampSamplecode/blob/main/countfiles.sh)
 
 	Count number of files with a given extension in a directory tree
 
