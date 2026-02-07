@@ -3,39 +3,39 @@
 
 * [countfiles.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/countfiles.sh)
 
-	Count number of files with a given extension in a directory tree
+  Count number of files with a given extension in a directory tree
 
 * [countchars.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/countchars.sh)
 
-	Count number of chars in a file and print the 10 most frequent chars with thir percentage
+  Count number of chars in a file and print the 10 most frequent chars with thir percentage
 
 * [substdigits.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/substdigits.sh)
 
-    Replace digits 0-9 with their textual representation
+  Replace digits 0-9 with their textual representation
 
 * [fibonacci.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/fibonacci.sh)
 
-    Caldulate fibonacci numbers iterativ and recursive
+  Caldulate fibonacci numbers iterativ and recursive
 
 * [findactivedevices.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/findactivedevices.sh)
 
-    Scan local net for active systems and print their DNS name and IP address
+  Scan local net for active systems and print their DNS name and IP address
 
 * [testipv4.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/testipv4.sh)
 
-    Test if an IPv4 is valid and local or external
+  Test if an IPv4 is valid and local or external
 
 * [wetterin.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/wetterin.sh)
 
-    Retrieve weather information for a city
+  Retrieve weather information for a city
 
 * [highlow.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/highlow.sh)
 
-    High low game
+  High low game
 
 * [functions.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/functions.sh)
 
-    Sourced file with some helper functions and debug enhancement definition
+  Sourced file with some helper functions and debug enhancement definition
 
 ```
 cloc --by-file *.sh
