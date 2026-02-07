@@ -22,9 +22,7 @@
 #
 #######################################################################################################################
 
-source functions.sh # helperfunctions
-
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+source functions.sh 														# include helperfunctions
 
 fak_r() {
 	local fm1 result
@@ -70,7 +68,7 @@ fibonacci() { # number
 if (( $# != 0 )); then
 	fibonacci "$1"
 else
-	for i in $(seq 0 5 20);do
+	for i in $(seq 0 5 20);do								# some tests
 		fibonacci "$i"
 	done
 fi	

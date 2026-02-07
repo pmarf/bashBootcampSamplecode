@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #######################################################################################################################
 #
-#	Sample bash code which counts characters in a file and prints the sorted frequency 
+#	Sample bash code which counts characters in a file and prints the 10 most frequent characters
 #
 #######################################################################################################################
 #
@@ -22,11 +22,9 @@
 #
 #######################################################################################################################
 
-source functions.sh # helperfunctions
+source functions.sh 										# source helperfunctions
 
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-
-declare -A frequency
+declare -A frequency										# dictionary which hols the count of every char
 
 if (( $# == 0 )); then
 	error "Missing filename"
@@ -39,28 +37,29 @@ fi
 filename="$1"
 sumchars=0
 
-while read -r line; do
-	for (( i=0; i<${#line}; i++ )); do
-		(( sumchars++ ))
+while read -r line; do										# process every line of file
+	for (( i=0; i<${#line}; i++ )); do						# process every char in line
+		(( sumchars++ ))									# increase sum counter to have number of all chars read
 		char=${line:i:1}
-		if [[ -v frequency[$char] ]]; then
-			(( frequency[$char]++ ))
+		if [[ -v frequency[$char] ]]; then					# if char already detected
+			(( frequency[$char]++ ))						# increase counter
 		else
-			(( frequency[$char]=1 ))
+			(( frequency[$char]=1 ))						# else initialize counter
 		fi
 	done
 done < "$filename"
 
 echo "Sum chars: $sumchars"
 
-sortfilename="$(mktemp)"
-unprintable=0
-for char in "${!frequency[@]}"; do
-	count="${frequency[$char]}"
-	(( frequency=($count * 100 ) / $sumchars ))
-	echo "${frequency} $count '$char' " >> "$sortfilename"
+sortfilename="$(mktemp)"									# create a temporary filename in /tmp
+for char in "${!frequency[@]}"; do							# loop over all keys/chars
+	count="${frequency[$char]}"								# retrieve the count
+	(( frequency=(count * 100 ) / sumchars ))				# calculate frequency
+	echo "${frequency} $count '$char' " >> "$sortfilename"	# append result to temporary file
 done
 
-sort -k1,1nr -k2,1nr "$sortfilename"
+sort -r -n -k1 -k2 "$sortfilename" > "${sortfilename}2"		# sort temporary file
 
-rm "$sortfilename"
+head -n 10 "${sortfilename}2"								# print first 10 chars
+
+rm "${sortfilename}"*										# cleanup

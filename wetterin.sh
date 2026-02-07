@@ -22,16 +22,14 @@
 #
 #######################################################################################################################
 
-source functions.sh	# helperfunctions
+source functions.sh																# source helperfunctions
 
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-
-readonly OPENSTREATMAP_URL="https://nominatim.openstreetmap.org"
+readonly OPENSTREATMAP_URL="https://nominatim.openstreetmap.org"				# constants for the URLs
 readonly OPENMETEO_URL="https://api.open-meteo.com"
 
-readonly DEBUG=0	# set to 1 to enable debug output of received curl data
+readonly DEBUG=0																# set to 1 to enable debug output of received curl data
 
-jqAvailable=0
+jqAvailable=0																	# check whether jq is available
 if which jq > /dev/null; then	# sudo apt install jq
 	jqAvailable=1
 fi	
@@ -45,7 +43,7 @@ cityWeather() {
 
 	city="$1"
 
-	resultCity="$(curl -s ${OPENSTREATMAP_URL}/search?q="$city"\&format=json\&limit=1)"
+	resultCity="$(curl -s ${OPENSTREATMAP_URL}/search?q="$city"\&format=json\&limit=1)"	
 	if [[ "$resultCity" == "[]" ]]; then
 		error "$city not found"
 	fi
@@ -58,13 +56,13 @@ cityWeather() {
 		fi
 	fi
 
-	if (( jqAvailable )); then
+	if (( jqAvailable )); then															# use jq to extract fields form json
 		if ! latitude="$(jq -r .[0].lat <<< "$resultCity")"; then
 			error "Unable to parse $latitude"
 		fi
 		longitude="$(jq -r .[0].lon <<< "$resultCity")"	
 		
-	elif [[ "$resultCity" =~ \"lat\":\"([0-9\.]+)\".+\"lon\":\"([0-9\.]+)\" ]]; then
+	elif [[ "$resultCity" =~ \"lat\":\"([0-9\.]+)\".+\"lon\":\"([0-9\.]+)\" ]]; then	# use regex to extract the fields
 		latitude=${BASH_REMATCH[1]}
 		longitude=${BASH_REMATCH[2]}
 	else

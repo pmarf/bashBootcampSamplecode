@@ -22,15 +22,14 @@
 #
 #######################################################################################################################
 
-source functions.sh # helperfunctions
-
-declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+source functions.sh 														# source helperfunctions
 
 if (( $# < 1 )); then
 	error "Missing directory and optional extension"
 fi
 
 directory="$1"
-extension="${2:-"*.sh"}"
+extension="${2:-"*.sh"}"													# set extension to "*.sh if no second parameter was passed
 
+# find all files with passed extension case insensitive and count number of lines reurned by find
 echo "Found $(find "$directory" -iname "$extension" | wc -l) files with extension $extension in $directory"

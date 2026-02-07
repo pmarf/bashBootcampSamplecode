@@ -22,15 +22,17 @@
 #
 #######################################################################################################################
 
+declare -r PS4='|${LINENO}> \011${FUNCNAME[0]:+${FUNCNAME[0]}(): }'		# enhance debug message with line numbers
+
 error() {
-	echo "$@" >&2
-	if (( $# == 1 )); then
+	echo "$@" >&2											# print the passed text to stderr
+	if (( $# == 1 )); then									# if no second parameter was passed just exit
 		exit 1
 	else
-		return 1
+		return 1											# and otherwise just return error
 	fi
 }
 
-isInteger() { # number
-	[[ "$1" =~ ^[0-9]+$ ]]
+isInteger() { # number										# use regex to check if passed text is an integer
+	[[ "$1" =~ ^[0-9]+$ ]]									# return 0 (success) and 1 (failure)
 }
