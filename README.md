@@ -25,7 +25,7 @@
 
   Test if an IPv4 is valid and local or external
 
-* [wetterin.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/wetterin.sh)
+* [weatherin.sh](https://github.com/pmarf/bashBootcampSamplecode/blob/main/weatherin.sh)
 
   Retrieve weather information for a city
 
